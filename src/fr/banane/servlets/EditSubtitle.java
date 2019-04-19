@@ -26,8 +26,6 @@ public class EditSubtitle extends HttpServlet {
         ArrayList<Traduction> traductions = new ArrayList<>();
         DaoTraduction daoTraduction = new DaoTraduction(EditeurConnection.getInstance());
 
-
-
         //Recuperation de l'id de la traduction pour ensuite la recuperer dans la bdd le bouton ok
         if(request.getParameter("_ok_") != null) {
             traductions = daoTraduction.lister(null);

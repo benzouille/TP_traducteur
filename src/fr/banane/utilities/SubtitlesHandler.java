@@ -13,16 +13,16 @@ public class SubtitlesHandler {
     private Part part = null;
     private ArrayList<BlockTrad> blockTrads = new ArrayList<>();
     public static final int TAILLE_TAMPON = 10240;
-    public static final String PATH = "D:/Test/envoi_fichier/";
 
     public SubtitlesHandler(){}
 
-    public ArrayList<String > readSrt(String fileName) {
+    public ArrayList<String > readSrt(String contextPathName) {
         originalSubtitles = new ArrayList<String>();
 
         BufferedReader br;
         try {
-            br = new BufferedReader(new InputStreamReader(new FileInputStream(PATH + fileName), StandardCharsets.UTF_8));
+            System.out.println("le path plus le titre de readSrt : " + contextPathName);
+            br = new BufferedReader(new InputStreamReader(new FileInputStream(contextPathName), StandardCharsets.UTF_8));
             String line;
             while ((line = br.readLine()) != null) {
                 originalSubtitles.add(line);
@@ -73,12 +73,13 @@ public class SubtitlesHandler {
         return blockTrads;
     }
 
-    public void ecrireFichier( Part part, String nomFichier) throws IOException {
+    public void ecrireFichier( Part part,String contextPathName) throws IOException {
         BufferedInputStream entree = null;
         BufferedOutputStream sortie = null;
         try {
+            System.out.println("le path plus le titre de ecrireFichier : " + contextPathName);
             entree = new BufferedInputStream(part.getInputStream(), TAILLE_TAMPON);
-            sortie = new BufferedOutputStream(new FileOutputStream(new File(PATH + nomFichier)), TAILLE_TAMPON);
+            sortie = new BufferedOutputStream(new FileOutputStream(new File(contextPathName)), TAILLE_TAMPON);
 
             byte[] tampon = new byte[TAILLE_TAMPON];
             int longueur;
@@ -97,7 +98,7 @@ public class SubtitlesHandler {
         }
     }
 
-    public void SubtitleWriter(String fileName){
+    public void SubtitleWriter(String contextPath, String fileName){
 
     }
 

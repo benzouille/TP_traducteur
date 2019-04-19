@@ -18,8 +18,11 @@ import java.io.IOException;
 public class NewSubtitle extends HttpServlet {
     private Traduction traduction;
     private SubtitlesHandler subtitles;
+    private static final String PATH = "/WEB-INF/srt_folder/";
+    private String name;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         String titre = request.getParameter("titre");
         int lang_origin = Integer.parseInt(request.getParameter("lang_origin"));
         int lang_trad = Integer.parseInt(request.getParameter("lang_trad"));
@@ -41,8 +44,10 @@ public class NewSubtitle extends HttpServlet {
             // On écrit met le fichier en arraylist
 
             // On écrit définitivement le fichier sur le disque
+
+            System.out.println(context.getRealPath(PATH + nomFichier));
             subtitles = new SubtitlesHandler();
-            subtitles.ecrireFichier(part, nomFichier);
+            subtitles.ecrireFichier(part,context.getRealPath(PATH+nomFichier));
 
             request.setAttribute(nomChamp, nomFichier);
         }
@@ -51,13 +56,13 @@ public class NewSubtitle extends HttpServlet {
         // Utiliser l'id fourni dans le data (POST), et verifier qu'il existe dans la DB
         // SELECT COUNT(id_trad) FROM lang_traduction WHERE ID IN ('int(post[origin_trad_id])','int(post[origin_id])')
 
-        traduction = new Traduction(titre, lang_origin , lang_trad, subtitles.convertStringToBlockTrads(subtitles.readSrt(nomFichier)));
+        traduction = new Traduction(titre, lang_origin , lang_trad, subtitles.convertStringToBlockTrads(subtitles.readSrt(context.getRealPath(PATH+nomFichier))));
         DaoTraduction daoTraduction = new DaoTraduction(EditeurConnection.getInstance());
         daoTraduction.create(traduction);
         traduction = new Traduction();
-        traduction = daoTraduction.find(13);
+        traduction = daoTraduction.find();
         System.out.println(traduction.toString());
-        request.setAttribute("trad", daoTraduction.find(13));
+        request.setAttribute("trad", daoTraduction.find());
 
         this.getServletContext().getRequestDispatcher("/WEB-INF/edit_subtitle.jsp").forward(request, response);
     }

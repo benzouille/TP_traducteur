@@ -67,6 +67,30 @@ public class DaoTraduction extends Dao<Traduction>{
         return false;
         }
 
+    public Traduction find() {
+        Traduction traduction = new Traduction();
+        PreparedStatement preparedStatement = null;
+        BlockTrad blockTrad = new BlockTrad();
+
+        try {
+            // Exécution de la requête
+            ResultSet result = null;
+            result = EditeurConnection.getInstance().createStatement( ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
+                    .executeQuery("SELECT MAX(id_traduction) as id_traduction FROM Traduction;");
+
+            int id_traduction = -1;
+            if(result.first()) {
+                id_traduction = result.getInt("id_traduction");
+                // Récupération des données
+                traduction = find(id_traduction);
+            }
+
+        } catch (SQLException e)
+        { e.printStackTrace(); }
+
+        return traduction;
+    }
+
         @Override
         public Traduction find(int id_traduction) {
             Traduction traduction = new Traduction();
