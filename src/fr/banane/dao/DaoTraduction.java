@@ -129,7 +129,7 @@ public class DaoTraduction extends Dao<Traduction>{
 
         @Override
         public ArrayList<Traduction> lister(Integer typeNull) {
-        //Juste pour leiste les traductions sans charger les blocktrads
+        //Juste pour liste les traductions sans charger les blocktrads
           ArrayList<Traduction> traductions = new ArrayList<>();
           ResultSet result = null;
           try {

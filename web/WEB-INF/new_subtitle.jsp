@@ -1,3 +1,4 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%--
   Created by IntelliJ IDEA.
   User: Ben
@@ -5,7 +6,7 @@
   Time: 15:45
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,13 +26,13 @@
     </div>
     <div class="col-lg-8 border">
 
-        <form method="post" action="nouveau" enctype="multipart/form-data">
+        <form method="post" action="/Traducteur_sous_titre/nouveau" enctype="multipart/form-data">
             <legend>Nouveau fichier</legend>
 
             <div class="row">
                 <div class="form-group">
-                    <label for="titre" class="col-lg-6">Titre du fichier : </label>
-                    <input class="form-control col-lg-3" type="text" name="titre" id="titre">
+                    <label for="id_titre" class="col-lg-6">Titre du fichier : </label>
+                    <input class="form-control col-lg-3" type="text" name="titre" value="${titre}" id="id_titre">
                 </div>
             </div>
             </br>
@@ -40,38 +41,49 @@
                     <label for="fichier" class="col-lg-6">Fichier à envoyer : </label>
                     <div class="col-lg-2"></div>
                     <div class="col-lg-4">
-                        <input type="file" name="fichier" id="fichier">
+                        <input type="file" name="fichier" value="${fichier}" id="fichier">
                     </div>
                 </div>
             </div>
             </br>
             <div class="row">
                 <div class="form-group">
-                    <label for="lang_origin" class="col-lg-6 control-label">Selectionner la langue d'origine </label>
+                    <label for="id_lang_origin" class="col-lg-6 control-label">Selectionner la langue d'origine </label>
                     <div class="col-lg-6">
-                        <select id="lang_origin" name="lang_origin" class="form-control" >
-                        <option value="1">Français</option>
-                        <option value="2">Anglais</option>
-                        <option value="3">Allemand</option>
-                        <option value="4">Italien</option>
-                        <option value="5">Espagnol</option>
-                        <option value="6">Mandarin</option>
-                    </select>
+                        <select id="id_lang_origin" name="lang_origin" class="form-control" >
+                            <option value="empty"></option>
+                            <c:forEach items="${listeLangues}" var="language1" varStatus="numchamp">
+                                <c:choose>
+                                    <c:when test="${language1.langue eq lang_origin}">
+                                        <option selected value="${language1.langue}">${language1.langue}</option>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <option value="${language1.langue}">${language1.langue}</option>
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:forEach>
+                        </select>
                     </div>
                 </div>
             </div>
             </br>
             <div class="row">
                 <div class="form-group">
-                    <label for="lang_trad" class="col-lg-6 control-label">Selectionner la langue de traduction </label>
+                    <label for="id_lang_trad" class="col-lg-6 control-label">Selectionner la langue de traduction </label>
                     <div class="col-lg-6">
-                        <select id="lang_trad" name="lang_trad" class="form-control" >
-                            <option value="1">Français</option>
-                            <option value="2">Anglais</option>
-                            <option value="3">Allemand</option>
-                            <option value="4">Italien</option>
-                            <option value="5">Espagnol</option>
-                            <option value="6">Mandarin</option>
+                        <select id="id_lang_trad" name="lang_trad" class="form-control" >
+                            <option value="empty"></option>
+
+                            <c:forEach items="${listeLangues}" var="language2" varStatus="numchamp">
+                                <c:choose>
+                                    <c:when test="${language2.langue eq lang_trad}">
+                                        <option selected value="${language2.langue}">${language2.langue}</option>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <option value="${language2.langue}">${language2.langue}</option>
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:forEach>>
                         </select>
                     </div>
                 </div>
