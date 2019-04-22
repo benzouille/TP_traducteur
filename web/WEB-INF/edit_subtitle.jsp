@@ -1,3 +1,5 @@
+<%@ page contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8" %>
+
 <%--
   Created by IntelliJ IDEA.
   User: Ben
@@ -5,9 +7,8 @@
   Time: 23:10
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page pageEncoding="UTF-8" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,18 +19,16 @@
 </head>
 
 <body>
-
 <%@ include file="menu.jsp" %>
-
 <div class="container">
     <p>TRADUCTION</p>
 
     <div class="container">
         <form class="row" method="post" action="edit">
             <div class="form-group" >
-                <label for="id_traduction" class="col-lg-4 control-label">Selectionner la traduction </label>
+                <label for="id_trad" class="col-lg-4 control-label">Selectionner la traduction </label>
                 <div class="col-lg-4">
-                    <select id="id_traduction" name="id_traduction" class="form-control" >
+                    <select id="id_trad" name="id_traduction" class="form-control" >
                         <c:forEach items="${traductions}" var="traduction">
                             <option value="${traduction.id}"><c:out value="${traduction.titre}" /></option>
                         </c:forEach>
@@ -57,7 +56,7 @@
 
                 <div class="col-lg-6">
                     <div class="row">
-                        <input class="btn" type="submit" name="_enregistrer_" value="Enregister" action="">
+                        <input class="btn" type="submit" name="_enregistrer_" value="Enregister">
                     </div>
                 </div>
 
@@ -88,7 +87,7 @@
                             </c:choose>
                         </div>
                     </div>
-                    <form>
+                    <div >
                         <c:forEach items="${trad.blockTrads}" var="blockTrad">
                             <div class="row block">
                                 <div class="col-lg-1 tabTrad"><c:out value="${blockTrad.numLigne}" /></div>
@@ -100,7 +99,7 @@
                                 </div>
                             </div>
                         </c:forEach>
-                    </form>
+                    </div>
                 </div>
             </div>
         </form>
