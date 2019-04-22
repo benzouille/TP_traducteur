@@ -10,7 +10,7 @@ TP final du cours jee
 
 
 # Création de la base de données
-- Créer la base de données srt_bfa
+- Créer la base de données Editeur_traduction
 - Autoriser postgres ou tout autre utilisateur ayant des droits sur la base de données.
 - Lancer le script de création des tables directement depuis une console.
 - Donner les droits à l'utilisateur choisi sur les tables créés
